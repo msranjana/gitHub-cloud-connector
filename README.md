@@ -19,7 +19,7 @@ github-connector/
 │   └── github.py            # Reusable async GitHub API client
 └── routes/
     ├── __init__.py
-    ├── repos.py             # GET /repos | GET /commits | POST /create-pull-request
+  ├── repos.py             # GET /repos | GET /commits
     └── issues.py            # GET /issues | POST /create-issue
 ```
 
@@ -71,7 +71,6 @@ Interactive docs: `http://127.0.0.1:8000/docs`
 | GET | `/commits?owner=&repo=&per_page=&sha=` | Fetch commits for a repository |
 | GET | `/issues?owner=&repo=` | List issues for a repository |
 | POST | `/create-issue` | Create a new issue |
-| POST | `/create-pull-request` | Create a pull request |
 
 ---
 
@@ -106,20 +105,6 @@ curl -X POST http://localhost:8000/create-issue \
     "repo": "your-repo",
     "title": "Bug: something is broken",
     "body": "Steps to reproduce...\n1. Do this\n2. See error"
-  }'
-```
-
-### Create a pull request
-```bash
-curl -X POST http://localhost:8000/create-pull-request \
-  -H "Content-Type: application/json" \
-  -d '{
-    "owner": "your-username",
-    "repo": "your-repo",
-    "title": "Feature: add new endpoint",
-    "head": "feature-branch",
-    "base": "main",
-    "body": "This PR introduces the new endpoint and tests."
   }'
 ```
 
