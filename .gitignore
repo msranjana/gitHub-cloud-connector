@@ -1,0 +1,13 @@
+# Environment secrets - NEVER commit this
+.env
+
+# Python artifacts
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+dist/
+
+# IDE
+.vscode/
+.idea/
