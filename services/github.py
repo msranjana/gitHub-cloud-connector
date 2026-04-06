@@ -55,6 +55,37 @@ class GitHubService:
             "POST", f"/repos/{owner}/{repo}/issues", json=payload
         )
 
+    async def list_commits(
+        self,
+        owner: str,
+        repo: str,
+        per_page: int = 30,
+        sha: str | None = None,
+    ) -> list[dict]:
+        """List commits for owner/repo, optionally filtered by branch SHA."""
+        params: dict[str, Any] = {"per_page": per_page}
+        if sha:
+            params["sha"] = sha
+        return await self._request("GET", f"/repos/{owner}/{repo}/commits", params=params)
+
+    async def create_pull_request(
+        self,
+        owner: str,
+        repo: str,
+        title: str,
+        head: str,
+        base: str,
+        body: str = "",
+    ) -> dict:
+        """Create a pull request in owner/repo."""
+        payload = {
+            "title": title,
+            "head": head,
+            "base": base,
+            "body": body,
+        }
+        return await self._request("POST", f"/repos/{owner}/{repo}/pulls", json=payload)
+
 
 # Singleton — import and reuse across routes
 github_service = GitHubService()
